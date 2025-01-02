@@ -1,0 +1,42 @@
+Hotel website
+--Services
+1. User Service 
+2. Booking Service 
+3. Hotel Service 
+4. Search Service -> Consumer from Kafka 
+5. Kafka queue for email send (topics )
+6. Nginx app lb
+
+--Databases
+Mongo db create Session bucket (document)
+create Bookings bucket
+create User bucket keep same db as of now later modify it to SQL db
+create Hotels bucket (Rooms inventory)
+Elastic search db for the hotel names and location
+
+--Functional Req
+1. User should be able to regester himself
+2. User should be able to create booking including the payment
+3. Email should be triggered after the Payment success with the booking ID.
+4. Hotel details will be added manually (later Admin portal APIs can be added )
+5. Hotel search autocomplete func
+
+--Non Functional Req
+Services should be implemented in the Webflux
+Database should be highly scalable 
+There should be load balancing 
+There should be commong error handling
+There should be the unit tests must
+Concurrent user should be handled gracefully there should be locking while booking the rooms
+No room available should be handled 
+Confing should be used using @ConfigurationProperties and the @Value annotation
+There should be dev and test envs separately 
+(User/ Admin auth and JWT can be implemented later on)
+(Retry mechanism ?)
+(Circuit breaker with fallback mechanism)
+(implement redis cache ?)
+(nginx with lua scripts ?)
+(Can include Monitoring Prometheus and Grafana)
+
+
+--Put this in the md file and push each update in the github 
