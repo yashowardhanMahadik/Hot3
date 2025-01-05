@@ -1,7 +1,7 @@
 package com.hot3.userService.Service.ServiceImpl;
 
 import com.hot3.userService.DTO.UserDTO;
-import com.hot3.userService.Exception.UserInvalidException;
+import com.hot3.userService.Exception.UserInvalidsException;
 import com.hot3.userService.Model.User;
 import com.hot3.userService.Repository.UserRepository;
 import com.hot3.userService.Service.UserService;
@@ -17,18 +17,18 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     //Create User
-    public boolean createUser(UserDTO userDTO){
+    public UserDTO createUser(UserDTO userDTO){
         try {
             User user = new User();
 //            user.setId(userDTO.getId());
             user.setName(userDTO.getName());
-            user.setEmail(user.getEmail());
-            userRepository.save(user);
-            return true;
+            user.setEmail(userDTO.getEmail());
+            User saved = userRepository.save(user);
+            return UserDTO.getUserDTO(saved);
         }
         catch(Exception e){
             //todo : need to see which exception to throw here if DB cause the error
-            throw new UserInvalidException("User Data Invalid or DB exception");
+            throw new UserInvalidsException("User Data Invalid or DB exception");
         }
     }
 
