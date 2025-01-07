@@ -1,6 +1,7 @@
 package com.hot3.HotelServiceApp.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -14,18 +15,29 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Hotel {
 
     @Id
-    private String hotel_id;
+     String hotel_id;
 
     @NotNull
     @Indexed(unique = true)
-    private String name;
+     String name;
     @NotNull
-    private String address;
+     String address;
     @NotNull
-    private String city;
-    private List<Room> rooms;
+     String city;
+     List<Room> rooms;
 
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "hotel_id='" + hotel_id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", rooms=" + rooms +
+                '}';
+    }
 }

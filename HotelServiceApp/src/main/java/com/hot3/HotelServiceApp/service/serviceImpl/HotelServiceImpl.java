@@ -16,6 +16,7 @@ public class HotelServiceImpl implements HotelService {
 
     // CRUD Add
     public Mono<Hotel> addHotel(Hotel hotel){
+        System.out.println(hotel.toString());
 
         return Mono.just(hotel)
                 .flatMap(hotelRepository::save)
