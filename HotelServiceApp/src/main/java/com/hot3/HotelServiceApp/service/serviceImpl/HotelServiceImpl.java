@@ -3,25 +3,25 @@ package com.hot3.HotelServiceApp.service.serviceImpl;
 import com.hot3.HotelServiceApp.model.Hotel;
 import com.hot3.HotelServiceApp.repository.HotelRepository;
 import com.hot3.HotelServiceApp.service.HotelService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
+@RequiredArgsConstructor
 public class HotelServiceImpl implements HotelService {
 
-    @Autowired
-    private HotelRepository hotelRepository;
+
+    private final HotelRepository hotelRepository;
 
     // CRUD Add
     public Mono<Hotel> addHotel(Hotel hotel){
-        System.out.println(hotel.toString());
+        System.out.println("Servec impl call : "+hotel.toString());
 
-        return Mono.just(hotel)
-                .flatMap(hotelRepository::save)
-                .onErrorReturn(new Hotel())
-                .switchIfEmpty(null);
+        return hotelRepository.save(hotel);
+//                .onErrorReturn(new Hotel())
+//                .switchIfEmpty(null);
     }
     // Get one
     public Mono<Hotel> getHotelByName(String name){

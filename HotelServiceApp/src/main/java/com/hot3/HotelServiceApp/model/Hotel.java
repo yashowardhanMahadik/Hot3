@@ -1,9 +1,6 @@
 package com.hot3.HotelServiceApp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,22 +10,19 @@ import java.util.List;
 
 @Document(collection = "Hotels")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class Hotel {
 
-    @Id
-     String hotel_id;
+     @Id
+     private String hotel_id;
 
     @NotNull
     @Indexed(unique = true)
-     String name;
+    private String name;
     @NotNull
-     String address;
+    private String address;
     @NotNull
-     String city;
-     List<Room> rooms;
+    private String city;
+     private List<Room> rooms;
 
     @Override
     public String toString() {
