@@ -25,6 +25,9 @@ public class HotelService {
     }
 
     public Mono<Hotel> updateHotel(String id, Hotel hotel) {
+        // add DTO
+        //Immutable class ? Constants class ? Enums ?
+        // add validations
         return hotelRepository.findById(id)
                 .flatMap(existingHotel -> {
                     existingHotel.setName(hotel.getName());
@@ -32,6 +35,8 @@ public class HotelService {
                     existingHotel.setRating(hotel.getRating());
                     return hotelRepository.save(existingHotel);
                 });
+        //Handle errors return it
+        //add unit tests
     }
 
     public Mono<Void> deleteHotel(String id) {

@@ -19,9 +19,8 @@ public class HotelServiceImpl implements HotelService {
     public Mono<Hotel> addHotel(Hotel hotel){
         System.out.println("Servec impl call : "+hotel.toString());
 
-        return hotelRepository.save(hotel);
-//                .onErrorReturn(new Hotel())
-//                .switchIfEmpty(null);
+        Mono<Hotel> saved = hotelRepository.save(hotel);
+        return saved;
     }
     // Get one
     public Mono<Hotel> getHotelByName(String name){

@@ -22,7 +22,8 @@ public class Hotel {
     private String address;
     @NotNull
     private String city;
-     private List<Room> rooms;
+//     private List<Room> rooms;
+
 
     @Override
     public String toString() {
@@ -31,7 +32,7 @@ public class Hotel {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
-                ", rooms=" + rooms +
+//                ", rooms=" + rooms +
                 '}';
     }
 }
