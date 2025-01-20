@@ -14,7 +14,7 @@ create User bucket keep same db as of now later modify it to SQL db
 create Hotels bucket (Rooms inventory)
 Elastic search db for the hotel names and location
 
---Functional Req bad
+--Functional Req hehe
 1. User should be able to regester himself
 2. User should be able to create booking including the payment
 3. Email should be triggered after the Payment success with the booking ID.
