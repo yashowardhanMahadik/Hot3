@@ -29,50 +29,57 @@ public class HotelController {
 
      */
     @PostMapping("/addHotel")
-    public Mono<Hotel>  addHotel(@RequestBody Hotel hotel){
+    public Mono<Hotel> addHotel(@RequestBody Hotel hotel) {
         return hotelService.addHotel(hotel);
     }
 
     @PostMapping("/addHotel2")
-    public Mono<ServerResponse> addHotel2(@RequestBody HotelDTO hotel){
+    public Mono<ServerResponse> addHotel2(@RequestBody HotelDTO hotel) {
         // Server response not working dont know why
         return hotelService.addHotel2(hotel);
     }
 
     @PostMapping("/addHotel3")
-    public Mono<ServerResponse> addHotel3(@RequestBody Hotel hotel){
+    public Mono<ServerResponse> addHotel3(@RequestBody Hotel hotel) {
         // Server response not working dont know why
-        System.out.println("hotel controller: "+hotel.toString());
+        System.out.println("hotel controller: " + hotel.toString());
         return hotelService.addHotel3(hotel);
     }
 
     @PostMapping("/addHotel4")
-    public Mono<ResponseEntity<Hotel>> addHotel4(@RequestBody Hotel hotel){
-        System.out.println("hotel controller: "+hotel.toString());
+    public Mono<ResponseEntity<Hotel>> addHotel4(@RequestBody Hotel hotel) {
+        System.out.println("hotel controller: " + hotel.toString());
         return hotelService.addHotel(hotel)
                 .map(hotel1 -> ResponseEntity.ok(hotel1))
-                .onErrorMap(e-> new RuntimeException(" This error occured : "+e.getMessage()))
+                .onErrorMap(e -> new RuntimeException(" This error occured : " + e.getMessage()))
                 .switchIfEmpty(Mono.error(new RuntimeException("Its empty")));
     }
 
     @PostMapping("/addHotel5")
-    public Mono<ResponseEntity<Hotel>> addHotel5(@Valid @RequestBody HotelDTO hotelDTO){
+    public Mono<ResponseEntity<Hotel>> addHotel5(@Valid @RequestBody HotelDTO hotelDTO) {
         return hotelService.addHotel5(hotelDTO);
 
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<Flux<Hotel>> getHotels(){
+    public ResponseEntity<Flux<Hotel>> getHotels() {
         return hotelService.getAllHotels();
     }
 
+    @GetMapping("/getAllHotels")
+    public ResponseEntity<Flux<Hotel>> getHotels(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Flux<Hotel> allHotels = hotelService.getAllHotels(page, size);
+        return ResponseEntity.ok(allHotels);
+
+    }
+
     @GetMapping("/getOne/{hotelName}")
-    public Mono<ResponseEntity<Hotel>> getHotel(@PathVariable String hotelName){
+    public Mono<ResponseEntity<Hotel>> getHotel(@PathVariable String hotelName) {
         return hotelService.getByName(hotelName);
     }
 
     @GetMapping("/getOne")
-    public Mono<ResponseEntity<Hotel>> getHotel2(@RequestParam("hotelName") String hotelName){
+    public Mono<ResponseEntity<Hotel>> getHotel2(@RequestParam("hotelName") String hotelName) {
         return hotelService.getByName(hotelName);
     }
 

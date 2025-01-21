@@ -8,6 +8,9 @@ import com.hotl4.BadHotel.Repository.HotelRepository;
 import com.hotl4.BadHotel.Service.HotelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,21 +18,19 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class HotelServiceImpl implements HotelService {
     private final HotelRepository repo;
 
-    public Mono<Hotel> addHotel(Hotel hotel){
+    public Mono<Hotel> addHotel(Hotel hotel) {
         // add the request validations later
         // add DTO instead of hte hotel object
         // see if fallback value is needed or not ?
-        System.out.println("hotel Service impl: "+hotel.toString());
+        System.out.println("hotel Service impl: " + hotel.toString());
         return repo.save(hotel)
-                .onErrorMap(e->  {
+                .onErrorMap(e -> {
                     return new DuplicateKeyException(e.getMessage());
                 });
     }
@@ -49,17 +50,17 @@ public class HotelServiceImpl implements HotelService {
 //        System.out.println("Executes : ");
 //        return ServerResponse.ok().body(hotelMono,Hotel.class);
         return repo.save(hotel)
-                .flatMap(hotel1->
-                    ServerResponse.ok()
-                            .bodyValue(hotel1)
+                .flatMap(hotel1 ->
+                        ServerResponse.ok()
+                                .bodyValue(hotel1)
                 ).switchIfEmpty(ServerResponse.notFound().build()) // Handle empty Mono properly
                 .onErrorResume(e -> ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .bodyValue("Error occurred: " + e.getMessage()));
     }
 
-    public Mono<ResponseEntity<Hotel>> addHotel5(HotelDTO hotelDTO){
+    public Mono<ResponseEntity<Hotel>> addHotel5(HotelDTO hotelDTO) {
         return repo.save(hotelDTO.convertHotel2())
-                .onErrorMap(e-> new RuntimeException("DB Unable to save -> "+e.getMessage()))
+                .onErrorMap(e -> new RuntimeException("DB Unable to save -> " + e.getMessage()))
                 .map(ResponseEntity::ok)
                 .switchIfEmpty(Mono.error(new EmptyException("Repsponse came empty")));
     }
@@ -70,11 +71,14 @@ public class HotelServiceImpl implements HotelService {
         return ResponseEntity.ok(hotelFlux);
 
     }
+    public Flux<Hotel> getAllHotels(int page, int size) {
+        return repo.findAllBy(PageRequest.of(page, size));
+    }
 
     @Override
     public Mono<ResponseEntity<Hotel>> getByName(String hotelName) {
         return repo.findByName(hotelName)
-                .onErrorMap(e -> new RuntimeException("DB unable to fetch "+ e.getMessage()))
+                .onErrorMap(e -> new RuntimeException("DB unable to fetch " + e.getMessage()))
                 .switchIfEmpty(Mono.error(new EmptyException("Response Empty")))
                 .map(ResponseEntity::ok);
     }
