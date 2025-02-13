@@ -1,7 +1,7 @@
 Hotel website
 --Services
 1. User Service 
-2. Booking Service 
+2. Booking Service a,sd
 3. Hotel Service (later with Elastic search DB) producer to kafka
 4. Search Service -> Consumer from Kafka 
 5. Kafka queue for email send (topics )
