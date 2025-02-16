@@ -1,6 +1,6 @@
 Hotel website
 --Services
-1. User Service awev
+1. User Service
 2. Booking Service
 3. Hotel Service (later with Elastic search DB) producer to kafka
 4. Search Service -> Consumer from Kafka 
