@@ -37,6 +37,7 @@ There should be dev and test envs separately
 (implement redis cache ?)
 (nginx with lua scripts ?)
 (Can include Monitoring Prometheus and Grafana)
+(Get the file upload multipartfile with clamAv)
 
 
 --Put this in the md file and push each update in the github 
