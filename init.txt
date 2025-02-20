@@ -21,7 +21,7 @@ Elastic search db for the hotel names and location
 4. Hotel details will be added manually (later Admin portal APIs can be added )
 5. Hotel search autocomplete func
 
---Non Functional Req
+--Non Functional Req sd
 Services should be implemented in the Webflux
 Database should be highly scalable 
 There should be load balancing 
