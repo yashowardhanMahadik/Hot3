@@ -3,6 +3,7 @@ package com.hot3.BookingService.Controller;
 import com.hot3.BookingService.Model.Booking;
 import com.hot3.BookingService.Service.BookingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/book")
 @RequiredArgsConstructor
 public class BookingController {
+    @Autowired
     private BookingService bookingService;
     @PostMapping("/create")
     public Mono<ResponseEntity<Booking>> createBooking(@RequestBody Booking booking){

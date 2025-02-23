@@ -14,8 +14,8 @@ public class Booking {
     private String bookingId;
 
     private String userName;
-    private String HotelName;
-    private Map<RoomType,Integer> rooms;
-    private PaymentStatus paymentStatus;
-    private boolean isConfirmed;
+    private String hotelName;
+//    private Map<RoomType,Integer> rooms;
+//    private PaymentStatus paymentStatus;
+//    private boolean isConfirmed;
 }
