@@ -1,5 +1,6 @@
 package com.hot3.BookingService.Service;
 
+import com.hot3.BookingService.Exception.RoomNotFoundException;
 import com.hot3.BookingService.Model.Booking;
 import com.hot3.BookingService.Repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,15 @@ public class BookingServiceImpl implements BookingService {
         System.out.println("Bookign hotel name Is : "+booking.getHotelName());
         Mono<Booking> bookingMono = bookingRepository.save(booking);
         return bookingMono.map(booking1 -> ResponseEntity.status(HttpStatus.CREATED).body(booking1));
+    }
+
+    public Mono<ResponseEntity<Boolean>> deleteBooking(Booking booking) {
+        return null;
+    }
+
+    public Mono<ResponseEntity<Booking>> getBooking(String bookId) {
+        Mono<Booking> bookingMono = bookingRepository.getBookingByBookingId(bookId);
+        return bookingMono.map(booking -> ResponseEntity.status(HttpStatus.FOUND).body(booking))
+                .onErrorMap(e-> new RoomNotFoundException("Room retrival fail",e));
     }
 }

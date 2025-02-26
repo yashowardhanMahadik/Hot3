@@ -8,4 +8,8 @@ import reactor.core.publisher.Mono;
 @Service
 public interface BookingService {
     public Mono<ResponseEntity<Booking>> createBooking(Booking booking);
+
+    public Mono<ResponseEntity<Boolean>> deleteBooking(Booking booking);
+
+    public Mono<ResponseEntity<Booking>> getBooking(String bookId);
 }
