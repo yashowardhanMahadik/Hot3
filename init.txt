@@ -5,7 +5,7 @@ Hotel website
 3. Hotel Service (later with Elastic search DB) producer to kafka
 4. Search Service -> Consumer from Kafka 
 5. Kafka queue for email send (topics )
-6. Nginx app lb
+6. Nginx app lb sd 
 
 --Databases
 Mongo db create Session bucket (document)
