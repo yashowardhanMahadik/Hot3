@@ -2,12 +2,17 @@ Hotel website
 --Services
 1. User Service
 2. Booking Service
-3. Hotel Service (later with Elastic search DB) producer to kafka
-4. Search Service -> Consumer from Kafka 
-5. Kafka queue for email send (topics )
+2.2 Implement docker compose only
 6. Nginx app load balancer
-7. Mongo Sharding impl
 
+*implement these later after the docker local complete setup
+{{
+    3. Hotel Service (later with Elastic search DB) producer to kafka
+    3.4 Change docker compose to the K8s
+    4. Search Service -> Consumer from Kafka 
+    5. Kafka queue for email send (topics )
+    7. Mongo Sharding impl
+}}
 --Databases
 Mongo db create Session bucket (document)
 create Bookings bucket
