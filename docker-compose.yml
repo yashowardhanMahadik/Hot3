@@ -1,0 +1,60 @@
+services:
+  loadbalancer:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    networks:
+      - my-network
+    depends_on:
+      - hotelService
+      - userService
+
+  hotelService:
+    container_name: hotelService-app
+    build:
+      context: hotelService/hotelService
+      dockerfile: Dockerfile
+    ports:
+      - "8080" # let the docker assign this port
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.data.mongodb.uri":"mongodb://mongoServer/red3",
+        "server.port":"8080"
+        }'
+    networks:
+      - my-network
+    depends_on:
+      - mongoServer
+  userService:
+    container_name: userService-app
+    build:
+      context: userService/userService
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.data.mongodb.uri":"mongodb://mongoServer/red3",
+        "app.red1.url":"http://hotelService:8080/red1"
+        }'
+    networks:
+      - my-network
+    depends_on:
+      - mongoServer
+
+  mongoServer:
+    image: mongo:latest
+    ports:
+      - "27070:27017"
+    networks:
+      - my-network
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  my-network:
+     driver: bridge
+volumes:
+  mongo-data:
